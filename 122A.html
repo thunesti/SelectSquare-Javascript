@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+    
+        #board {
+            display: grid;
+            grid-template-columns: repeat(8, 100px);
+            grid-template-rows: repeat(8, 100px);
+        }
+
+        #board>div {
+            border: 1px solid lightblue;
+        }
+
+        .selected {
+            background-color: yellow;
+        }
+
+        #control {
+            margin: 15px;
+        }
+
+    </style>
+    
+    </head>
+    <body>
+        <div id="board">
+
+            <!-- Javascript legger inn alle div'ene her (8*8 = 64 totalt) -->
+
+        </div>
+
+        <div id="control">
+            <button onclick="moveLeft()">Left</button>
+            <button onclick="moveDown()">Down</button>
+            <button onclick="moveUp()">Up</button>
+            <button onclick="moveRight()">Right</button>
+        </div>
+
+    <script>
+        
+        let selectedSquareIndex = 7;
+        const size = 64;
+        const pattern = '<div></div>';
+        const highlightedDiv = '<div class="selected"></div>';
+
+        // teller fra 0-7 = 8
+
+        showBoard()
+
+        function showBoard() {
+            let boardDiv = document.getElementById('board');
+
+            // del 1: alle rutene som ikke er valgt før den valgte
+
+            const lengthPart1 = selectedSquareIndex;
+            const part1 = ''.padEnd(pattern.length * lengthPart1, pattern);
+            boardDiv.innerHTML = part1;
+
+            // del 2: den valgte ruten
+
+            boardDiv.innerHTML += highlightedDiv;
+
+            // del 3: alle rutene som ikke er valgt etter den valgte
+
+            const lengthPart3 = size - (selectedSquareIndex + 1);
+            const part3 = ''.padEnd(pattern.length * lengthPart3, pattern);
+            boardDiv.innerHTML += part3;
+        }
+
+        function moveLeft() {
+            selectedSquareIndex --;
+            showBoard();
+        }
+
+        function moveDown() {
+            selectedSquareIndex +=8;
+            showBoard();
+        }
+
+        function moveUp() {
+            selectedSquareIndex -=8;
+            showBoard();
+        }
+
+        function moveRight() {
+            selectedSquareIndex ++;
+            showBoard();
+        }
+
+    </script>
+
+    </body>
+</html>
